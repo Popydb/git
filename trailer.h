@@ -5,14 +5,14 @@
 #include "strbuf.h"
 
 enum trailer_where {
-	WHERE_DEFAULT,
+	WHERE_UNSPECIFIED,
 	WHERE_END,
 	WHERE_AFTER,
 	WHERE_BEFORE,
 	WHERE_START
 };
 enum trailer_if_exists {
-	EXISTS_DEFAULT,
+	EXISTS_UNSPECIFIED,
 	EXISTS_ADD_IF_DIFFERENT_NEIGHBOR,
 	EXISTS_ADD_IF_DIFFERENT,
 	EXISTS_ADD,
@@ -20,7 +20,7 @@ enum trailer_if_exists {
 	EXISTS_DO_NOTHING
 };
 enum trailer_if_missing {
-	MISSING_DEFAULT,
+	MISSING_UNSPECIFIED,
 	MISSING_ADD,
 	MISSING_DO_NOTHING
 };
@@ -37,11 +37,10 @@ struct trailer_info {
 	int blank_line_before_trailer;
 
 	/*
-	 * Pointers to the start and end of the trailer block found. If there
-	 * is no trailer block found, these 2 pointers point to the end of the
-	 * input string.
+	 * Offsets to the trailer block start and end positions in the input
+	 * string. If no trailer block is found, these are set to 0.
 	 */
-	const char *trailer_start, *trailer_end;
+	size_t trailer_start, trailer_end;
 
 	/*
 	 * Array of trailers found.
@@ -119,8 +118,10 @@ struct trailer_iterator {
 	struct strbuf val;
 
 	/* private */
-	struct trailer_info info;
-	size_t cur;
+	struct {
+		struct trailer_info info;
+		size_t cur;
+	} internal;
 };
 
 /*

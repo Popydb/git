@@ -388,7 +388,7 @@ static void process_trailers_lists(struct list_head *head,
 int trailer_set_where(enum trailer_where *item, const char *value)
 {
 	if (!value)
-		*item = WHERE_DEFAULT;
+		*item = WHERE_UNSPECIFIED;
 	else if (!strcasecmp("after", value))
 		*item = WHERE_AFTER;
 	else if (!strcasecmp("before", value))
@@ -405,7 +405,7 @@ int trailer_set_where(enum trailer_where *item, const char *value)
 int trailer_set_if_exists(enum trailer_if_exists *item, const char *value)
 {
 	if (!value)
-		*item = EXISTS_DEFAULT;
+		*item = EXISTS_UNSPECIFIED;
 	else if (!strcasecmp("addIfDifferent", value))
 		*item = EXISTS_ADD_IF_DIFFERENT;
 	else if (!strcasecmp("addIfDifferentNeighbor", value))
@@ -424,7 +424,7 @@ int trailer_set_if_exists(enum trailer_if_exists *item, const char *value)
 int trailer_set_if_missing(enum trailer_if_missing *item, const char *value)
 {
 	if (!value)
-		*item = MISSING_DEFAULT;
+		*item = MISSING_UNSPECIFIED;
 	else if (!strcasecmp("doNothing", value))
 		*item = MISSING_DO_NOTHING;
 	else if (!strcasecmp("add", value))
@@ -586,7 +586,10 @@ static void ensure_configured(void)
 	if (configured)
 		return;
 
-	/* Default config must be setup first */
+	/*
+	 * Default config must be setup first. These defaults are used if there
+	 * are no "trailer.*" or "trailer.<token>.*" options configured.
+	 */
 	default_conf_info.where = WHERE_END;
 	default_conf_info.if_exists = EXISTS_ADD_IF_DIFFERENT_NEIGHBOR;
 	default_conf_info.if_missing = MISSING_ADD;
@@ -701,20 +704,35 @@ static void add_arg_item(struct list_head *arg_head, char *tok, char *val,
 	new_item->value = val;
 	duplicate_conf(&new_item->conf, conf);
 	if (new_trailer_item) {
-		if (new_trailer_item->where != WHERE_DEFAULT)
+		if (new_trailer_item->where != WHERE_UNSPECIFIED)
 			new_item->conf.where = new_trailer_item->where;
-		if (new_trailer_item->if_exists != EXISTS_DEFAULT)
+		if (new_trailer_item->if_exists != EXISTS_UNSPECIFIED)
 			new_item->conf.if_exists = new_trailer_item->if_exists;
-		if (new_trailer_item->if_missing != MISSING_DEFAULT)
+		if (new_trailer_item->if_missing != MISSING_UNSPECIFIED)
 			new_item->conf.if_missing = new_trailer_item->if_missing;
 	}
 	list_add_tail(&new_item->list, arg_head);
 }
 
-static void process_command_line_args(struct list_head *arg_head,
-				      struct list_head *new_trailer_head)
+static void parse_trailers_from_config(struct list_head *config_head)
 {
 	struct arg_item *item;
+	struct list_head *pos;
+
+	/* Add an arg item for each configured trailer with a command */
+	list_for_each(pos, &conf_head) {
+		item = list_entry(pos, struct arg_item, list);
+		if (item->conf.command)
+			add_arg_item(config_head,
+				     xstrdup(token_from_item(item, NULL)),
+				     xstrdup(""),
+				     &item->conf, NULL);
+	}
+}
+
+static void parse_trailers_from_command_line_args(struct list_head *arg_head,
+						  struct list_head *new_trailer_head)
+{
 	struct strbuf tok = STRBUF_INIT;
 	struct strbuf val = STRBUF_INIT;
 	const struct conf_info *conf;
@@ -725,16 +743,6 @@ static void process_command_line_args(struct list_head *arg_head,
 	 * separators that are defined).
 	 */
 	char *cl_separators = xstrfmt("=%s", separators);
-
-	/* Add an arg item for each configured trailer with a command */
-	list_for_each(pos, &conf_head) {
-		item = list_entry(pos, struct arg_item, list);
-		if (item->conf.command)
-			add_arg_item(arg_head,
-				     xstrdup(token_from_item(item, NULL)),
-				     xstrdup(""),
-				     &item->conf, NULL);
-	}
 
 	/* Add an arg item for each trailer on the command line */
 	list_for_each(pos, new_trailer_head) {
@@ -807,14 +815,14 @@ static ssize_t last_line(const char *buf, size_t len)
  * Return the position of the start of the patch or the length of str if there
  * is no patch in the message.
  */
-static size_t find_patch_start(const char *str)
+static size_t find_patch_start(const char *str, int no_divider)
 {
 	const char *s;
 
 	for (s = str; *s; s = next_line(s)) {
 		const char *v;
 
-		if (skip_prefix(s, "---", &v) && isspace(*v))
+		if (!no_divider && skip_prefix(s, "---", &v) && isspace(*v))
 			return s - str;
 	}
 
@@ -961,28 +969,24 @@ static void unfold_value(struct strbuf *val)
 	strbuf_release(&out);
 }
 
-static size_t process_input_file(FILE *outfile,
-				 const char *str,
-				 struct list_head *head,
-				 const struct process_trailer_options *opts)
+/*
+ * Parse trailers in "str", populating the trailer info and "head"
+ * linked list structure.
+ */
+static void parse_trailers(struct trailer_info *info,
+			     const char *str,
+			     struct list_head *head,
+			     const struct process_trailer_options *opts)
 {
-	struct trailer_info info;
 	struct strbuf tok = STRBUF_INIT;
 	struct strbuf val = STRBUF_INIT;
 	size_t i;
 
-	trailer_info_get(&info, str, opts);
+	trailer_info_get(info, str, opts);
 
-	/* Print lines before the trailers as is */
-	if (!opts->only_trailers)
-		fwrite(str, 1, info.trailer_start - str, outfile);
-
-	if (!opts->only_trailers && !info.blank_line_before_trailer)
-		fprintf(outfile, "\n");
-
-	for (i = 0; i < info.trailer_nr; i++) {
+	for (i = 0; i < info->trailer_nr; i++) {
 		int separator_pos;
-		char *trailer = info.trailers[i];
+		char *trailer = info->trailers[i];
 		if (trailer[0] == comment_line_char)
 			continue;
 		separator_pos = find_separator(trailer, separators);
@@ -1002,10 +1006,6 @@ static size_t process_input_file(FILE *outfile,
 					 strbuf_detach(&val, NULL));
 		}
 	}
-
-	trailer_info_release(&info);
-
-	return info.trailer_end - str;
 }
 
 static void free_all(struct list_head *head)
@@ -1054,7 +1054,7 @@ void process_trailers(const char *file,
 {
 	LIST_HEAD(head);
 	struct strbuf sb = STRBUF_INIT;
-	size_t trailer_end;
+	struct trailer_info info;
 	FILE *outfile = stdout;
 
 	ensure_configured();
@@ -1064,22 +1064,33 @@ void process_trailers(const char *file,
 	if (opts->in_place)
 		outfile = create_in_place_tempfile(file);
 
+	parse_trailers(&info, sb.buf, &head, opts);
+
 	/* Print the lines before the trailers */
-	trailer_end = process_input_file(outfile, sb.buf, &head, opts);
+	if (!opts->only_trailers)
+		fwrite(sb.buf, 1, info.trailer_start, outfile);
+
+	if (!opts->only_trailers && !info.blank_line_before_trailer)
+		fprintf(outfile, "\n");
+
 
 	if (!opts->only_input) {
+		LIST_HEAD(config_head);
 		LIST_HEAD(arg_head);
-		process_command_line_args(&arg_head, new_trailer_head);
+		parse_trailers_from_config(&config_head);
+		parse_trailers_from_command_line_args(&arg_head, new_trailer_head);
+		list_splice(&config_head, &arg_head);
 		process_trailers_lists(&head, &arg_head);
 	}
 
 	print_all(outfile, &head, opts);
 
 	free_all(&head);
+	trailer_info_release(&info);
 
 	/* Print the lines after the trailers as is */
 	if (!opts->only_trailers)
-		fwrite(sb.buf + trailer_end, 1, sb.len - trailer_end, outfile);
+		fwrite(sb.buf + info.trailer_end, 1, sb.len - info.trailer_end, outfile);
 
 	if (opts->in_place)
 		if (rename_tempfile(&trailers_tempfile, file))
@@ -1091,7 +1102,7 @@ void process_trailers(const char *file,
 void trailer_info_get(struct trailer_info *info, const char *str,
 		      const struct process_trailer_options *opts)
 {
-	int patch_start, trailer_end, trailer_start;
+	size_t patch_start, trailer_end = 0, trailer_start = 0;
 	struct strbuf **trailer_lines, **ptr;
 	char **trailer_strings = NULL;
 	size_t nr = 0, alloc = 0;
@@ -1099,11 +1110,7 @@ void trailer_info_get(struct trailer_info *info, const char *str,
 
 	ensure_configured();
 
-	if (opts->no_divider)
-		patch_start = strlen(str);
-	else
-		patch_start = find_patch_start(str);
-
+	patch_start = find_patch_start(str, opts->no_divider);
 	trailer_end = find_trailer_end(str, patch_start);
 	trailer_start = find_trailer_start(str, trailer_end);
 
@@ -1130,8 +1137,8 @@ void trailer_info_get(struct trailer_info *info, const char *str,
 
 	info->blank_line_before_trailer = ends_with_blank_line(str,
 							       trailer_start);
-	info->trailer_start = str + trailer_start;
-	info->trailer_end = str + trailer_end;
+	info->trailer_start = trailer_start;
+	info->trailer_end = trailer_end;
 	info->trailers = trailer_strings;
 	info->trailer_nr = nr;
 }
@@ -1146,6 +1153,7 @@ void trailer_info_release(struct trailer_info *info)
 
 static void format_trailer_info(struct strbuf *out,
 				const struct trailer_info *info,
+				const char *msg,
 				const struct process_trailer_options *opts)
 {
 	size_t origlen = out->len;
@@ -1155,7 +1163,7 @@ static void format_trailer_info(struct strbuf *out,
 	if (!opts->only_trailers && !opts->unfold && !opts->filter &&
 	    !opts->separator && !opts->key_only && !opts->value_only &&
 	    !opts->key_value_separator) {
-		strbuf_add(out, info->trailer_start,
+		strbuf_add(out, msg + info->trailer_start,
 			   info->trailer_end - info->trailer_start);
 		return;
 	}
@@ -1210,7 +1218,7 @@ void format_trailers_from_commit(struct strbuf *out, const char *msg,
 	struct trailer_info info;
 
 	trailer_info_get(&info, msg, opts);
-	format_trailer_info(out, &info, opts);
+	format_trailer_info(out, &info, msg, opts);
 	trailer_info_release(&info);
 }
 
@@ -1220,14 +1228,14 @@ void trailer_iterator_init(struct trailer_iterator *iter, const char *msg)
 	strbuf_init(&iter->key, 0);
 	strbuf_init(&iter->val, 0);
 	opts.no_divider = 1;
-	trailer_info_get(&iter->info, msg, &opts);
-	iter->cur = 0;
+	trailer_info_get(&iter->internal.info, msg, &opts);
+	iter->internal.cur = 0;
 }
 
 int trailer_iterator_advance(struct trailer_iterator *iter)
 {
-	while (iter->cur < iter->info.trailer_nr) {
-		char *trailer = iter->info.trailers[iter->cur++];
+	while (iter->internal.cur < iter->internal.info.trailer_nr) {
+		char *trailer = iter->internal.info.trailers[iter->internal.cur++];
 		int separator_pos = find_separator(trailer, separators);
 
 		if (separator_pos < 1)
@@ -1245,7 +1253,7 @@ int trailer_iterator_advance(struct trailer_iterator *iter)
 
 void trailer_iterator_release(struct trailer_iterator *iter)
 {
-	trailer_info_release(&iter->info);
+	trailer_info_release(&iter->internal.info);
 	strbuf_release(&iter->val);
 	strbuf_release(&iter->key);
 }
