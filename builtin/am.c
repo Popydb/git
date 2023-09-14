@@ -2269,7 +2269,7 @@ enum resume_type {
 };
 
 struct resume_mode {
-	enum resume_type mode;
+	int mode;
 	enum show_patch_type sub_mode;
 };
 

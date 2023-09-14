@@ -346,7 +346,7 @@ int cmd_ls_tree(int argc, const char **argv, const char *prefix)
 	int i, full_tree = 0;
 	int full_name = !prefix || !*prefix;
 	read_tree_fn_t fn = NULL;
-	enum ls_tree_cmdmode cmdmode = MODE_DEFAULT;
+	int cmdmode = MODE_DEFAULT;
 	int null_termination = 0;
 	struct ls_tree_options options = { 0 };
 	const struct option ls_tree_options[] = {

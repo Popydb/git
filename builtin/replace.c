@@ -553,7 +553,8 @@ int cmd_replace(int argc, const char **argv, const char *prefix)
 		MODE_GRAFT,
 		MODE_CONVERT_GRAFT_FILE,
 		MODE_REPLACE
-	} cmdmode = MODE_UNSPECIFIED;
+	};
+	int cmdmode = MODE_UNSPECIFIED;
 	struct option options[] = {
 		OPT_CMDMODE('l', "list", &cmdmode, N_("list replace refs"), MODE_LIST),
 		OPT_CMDMODE('d', "delete", &cmdmode, N_("delete replace refs"), MODE_DELETE),

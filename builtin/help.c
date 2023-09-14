@@ -42,7 +42,7 @@ enum show_config_type {
 	SHOW_CONFIG_SECTIONS,
 };
 
-static enum help_action {
+enum help_action {
 	HELP_ACTION_ALL = 1,
 	HELP_ACTION_GUIDES,
 	HELP_ACTION_CONFIG,
@@ -50,7 +50,8 @@ static enum help_action {
 	HELP_ACTION_DEVELOPER_INTERFACES,
 	HELP_ACTION_CONFIG_FOR_COMPLETION,
 	HELP_ACTION_CONFIG_SECTIONS_FOR_COMPLETION,
-} cmd_mode;
+};
+static int cmd_mode;
 
 static const char *html_path;
 static int verbose = 1;

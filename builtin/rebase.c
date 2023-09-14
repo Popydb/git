@@ -111,7 +111,7 @@ struct rebase_options {
 		REBASE_INTERACTIVE_EXPLICIT = 1<<4,
 	} flags;
 	struct strvec git_am_opts;
-	enum action action;
+	int action;
 	char *reflog_action;
 	int signoff;
 	int allow_rerere_autoupdate;

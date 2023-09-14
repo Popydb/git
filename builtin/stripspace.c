@@ -32,7 +32,7 @@ enum stripspace_mode {
 int cmd_stripspace(int argc, const char **argv, const char *prefix)
 {
 	struct strbuf buf = STRBUF_INIT;
-	enum stripspace_mode mode = STRIP_DEFAULT;
+	int mode = STRIP_DEFAULT;
 	int nongit;
 
 	const struct option options[] = {
