@@ -266,7 +266,8 @@ static int finish_object(struct object *obj, const char *name UNUSED,
 {
 	struct rev_list_info *info = cb_data;
 	if (oid_object_info_extended(the_repository, &obj->oid, NULL, 0) < 0) {
-		finish_object__ma(obj);
+		if (!info->revs->ignore_missing_links)
+			finish_object__ma(obj);
 		return 1;
 	}
 	if (info->revs->verify_objects && !obj->parsed && obj->type != OBJ_COMMIT)
