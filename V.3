@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Changelogs Archive - The GitHub Blog</title>
+	<atom:link href="https://github.blog/changelog/feed/" rel="self" type="application/rss+xml" />
+	<link>https://github.blog/changelog/</link>
+	<description>Updates, ideas, and inspiration from GitHub to help developers build and design software.</description>
+	<lastBuildDate>Fri, 15 Sep 2023 20:34:02 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.3.1</generator>
+
+<image>
+	<url>https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=32%2C32</url>
+	<title>Changelogs Archive - The GitHub Blog</title>
+	<link>https://github.blog/changelog/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">153214340</site>	<item>
+		<title>Repository&#8217;s Contributing Guidelines available via GraphQL API</title>
+		<link>https://github.blog/changelog/2023-09-15-repositorys-contributing-guidelines-available-via-graphql-api</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Fri, 15 Sep 2023 20:34:02 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-15-repositorys-contributing-guidelines-available-via-graphql-api</guid>
+
+					<description><![CDATA[<p>Repository's Contributing Guidelines available via GraphQL API</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-15-repositorys-contributing-guidelines-available-via-graphql-api">Repository&#8217;s Contributing Guidelines available via GraphQL API</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#039;ve added the ability to retrieve a repository&#039;s Contributing Guidelines via the GraphQL API. There is a new <a href="https://docs.github.com/en/graphql/reference/objects#contributingguidelines"><code>ContributingGuidelines</code> object</a> that&#039;s available under <code>Repository</code> object, when a <code>CONTRIBUTING.md</code> file is present.</p>
+<p>This addition brings API parity with the other <a href="https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file">Community health files</a> like <code>CODE_OF_CONDUCT.md</code>, which were previously available.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-15-repositorys-contributing-guidelines-available-via-graphql-api">Repository&#8217;s Contributing Guidelines available via GraphQL API</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74105</post-id>	</item>
+		<item>
+		<title>Custom auto-triage rules for Dependabot alerts (public beta)</title>
+		<link>https://github.blog/changelog/2023-09-14-custom-auto-triage-rules-for-dependabot-alerts-public-beta</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Thu, 14 Sep 2023 17:34:02 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-14-custom-auto-triage-rules-for-dependabot-alerts-public-beta</guid>
+
+					<description><![CDATA[<p>Custom auto-triage rules for Dependabot alerts (public beta)</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-14-custom-auto-triage-rules-for-dependabot-alerts-public-beta">Custom auto-triage rules for Dependabot alerts (public beta)</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Auto-triage rules are a powerful tool to help you reduce false positives and alert fatigue substantially, while better managing your alerts at scale.</p>
+<p>Starting today, you can now create your own custom rules to control how Dependabot auto-dismisses and reopens alerts – so you can focus on the alerts that matter, without worrying about the alerts that don’t.</p>
+<h3 id="whats-changing" id="whats-changing" >What’s changing?<a href="#whats-changing" class="heading-link pl-2 text-italic text-bold" aria-label="What’s changing?"></a></h3>
+<p>For any existing or future alerts that match a custom rule, Dependabot will perform the selected behavior accordingly. You can proactively filter out false positives, snooze alerts until patch release, and – as rules apply to both future and current alerts – manage existing alerts in bulk.</p>
+<h3 id="frequently-asked-questions" id="frequently-asked-questions" >Frequently asked questions<a href="#frequently-asked-questions" class="heading-link pl-2 text-italic text-bold" aria-label="Frequently asked questions"></a></h3>
+<h4 id="why-is-github-making-this-change" id="why-is-github-making-this-change" >Why is GitHub making this change?<a href="#why-is-github-making-this-change" class="heading-link pl-2 text-italic text-bold" aria-label="Why is GitHub making this change?"></a></h4>
+<p>At GitHub, we’ve been thinking deeply about how to responsibly address long-running issues around alert fatigue and false positives. Rather than over-indexing on one criterion like reachability or dependency scope, we believe that a responsibly-designed solution should be able to detect and reason on a rich set of complex, contextual alert metadata.</p>
+<p>That’s why, moving forward, we’re releasing a series of ships powered by an underlying, all-new, flexible and powerful alert rules engine. Our first ship – Dependabot presets – <a href="-02-dependabot-alerts-now-automatically-dismiss-false-positives-for-npm-public-beta/">leveraged our rules engine with GitHub-curated vulnerability patterns</a>. Today’s ship exposes our rules engine so you can create your own rules, too.</p>
+<h4 id="which-criteria-are-supported" id="which-criteria-are-supported" >Which criteria are supported?<a href="#which-criteria-are-supported" class="heading-link pl-2 text-italic text-bold" aria-label="Which criteria are supported?"></a></h4>
+<p>Rules can be created across the following attributes:</p>
+<div class="content-table-wrap"><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>severity</code></td>
+<td>Alert severity, based on CVSS base score, across the following values: <code>low</code>, <code>medium</code>, <code>high</code>, and <code>critical</code>.</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>Scope of the dependency: <code>development</code> (devDependency) or <code>runtime</code> (production).</td>
+</tr>
+<tr>
+<td><code>package-name</code></td>
+<td>Packages, listed by package name.</td>
+</tr>
+<tr>
+<td><code>cwe</code></td>
+<td>CWEs, listed by CWE ID.</td>
+</tr>
+<tr>
+<td><code>ecosystem</code></td>
+<td>Ecosystems, listed by ecosystem name.</td>
+</tr>
+<tr>
+<td><code>manifest</code></td>
+<td>Manifest files, listed by manifest path.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="what-behaviors-are-supported" id="what-behaviors-are-supported" >What behaviors are supported?<a href="#what-behaviors-are-supported" class="heading-link pl-2 text-italic text-bold" aria-label="What behaviors are supported?"></a></h4>
+<p><img decoding="async" src="https://i0.wp.com/user-images.githubusercontent.com/5788563/266432516-953496c1-2c65-484a-b528-59bec55dedc8.png" alt="Create or edit a custom rule" data-recalc-dims="1"></p>
+<p>Today’s ship covers support for auto-dismissing alerts indefinitely as well as snoozing alerts until patch. Auto-dismissing ensures all activity is easily visible and can be caught by existing reporting systems and workflows, while also ensuring that alerts can be reintroduced if metadata across the alert changes.</p>
+<h4 id="how-will-this-activity-be-reported" id="how-will-this-activity-be-reported" >How will this activity be reported?<a href="#how-will-this-activity-be-reported" class="heading-link pl-2 text-italic text-bold" aria-label="How will this activity be reported?"></a></h4>
+<p>Auto-dismissal activity is shown in webhooks, REST, GraphQL, and the audit log for Dependabot alerts. Alerts are dismissed without a notification or new pull request and appear as a special timeline event. As these alerts are closed, you’ll still be able to review any auto-dismissed alerts with the <code>resolution:auto-dismissed</code> filter.</p>
+<h4 id="who-can-create-and-modify-rules" id="who-can-create-and-modify-rules" >Who can create and modify rules?<a href="#who-can-create-and-modify-rules" class="heading-link pl-2 text-italic text-bold" aria-label="Who can create and modify rules?"></a></h4>
+<p>Auto-triage rules are free for open source repositories. Anyone who can enable Dependabot alerts for a public repository will be able to create custom rules for it. Customers of GitHub Advanced Security can create and manage custom rules across private repositories.</p>
+<h4 id="how-do-i-reopen-an-automatically-dismissed-alert" id="how-do-i-reopen-an-automatically-dismissed-alert" >How do I reopen an automatically dismissed alert?<a href="#how-do-i-reopen-an-automatically-dismissed-alert" class="heading-link pl-2 text-italic text-bold" aria-label="How do I reopen an automatically dismissed alert?"></a></h4>
+<p>Like any manually dismissed alert, you can reopen an auto-dismissed alert from the alert list view or details page. This specific alert won’t be auto-dismissed again (by any other auto-dismiss rule).</p>
+<h4 id="what-happens-if-alert-metadata-changes-or-advisory-information-is-withdrawn" id="what-happens-if-alert-metadata-changes-or-advisory-information-is-withdrawn" >What happens if alert metadata changes or advisory information is withdrawn?<a href="#what-happens-if-alert-metadata-changes-or-advisory-information-is-withdrawn" class="heading-link pl-2 text-italic text-bold" aria-label="What happens if alert metadata changes or advisory information is withdrawn?"></a></h4>
+<p>Dependabot recognizes and immediately responds to any changes to metadata which void auto-dismissal logic. For example, if you change the dependency scope and the alert no longer meets the criteria to be auto-dismissed, the alert will automatically reopen.</p>
+<h4 id="how-do-i-learn-more" id="how-do-i-learn-more" >How do I learn more?<a href="#how-do-i-learn-more" class="heading-link pl-2 text-italic text-bold" aria-label="How do I learn more?"></a></h4>
+<ul>
+<li><a href="https://docs.github.com/en/code-security/dependabot/dependabot-alerts/using-alert-rules-to-prioritize-dependabot-alerts">About the auto-triage feature</a></li>
+<li><a href="https://docs.github.com/en/rest/dependabot/alerts">Dependabot alerts REST API</a></li>
+<li><a href="https://docs.github.com/en/graphql/reference/objects#repositoryvulnerabilityalert">Dependabot alerts GraphQL API</a></li>
+<li><a href="https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#dependabot_alert">Dependabot alerts webhook</a></li>
+</ul>
+<h4 id="how-do-i-provide-feedback" id="how-do-i-provide-feedback" >How do I provide feedback?<a href="#how-do-i-provide-feedback" class="heading-link pl-2 text-italic text-bold" aria-label="How do I provide feedback?"></a></h4>
+<p>Let us know what you think by <a href="https://github.com/orgs/community/discussions/54290">providing feedback</a> — we’re listening!</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-14-custom-auto-triage-rules-for-dependabot-alerts-public-beta">Custom auto-triage rules for Dependabot alerts (public beta)</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74103</post-id>	</item>
+		<item>
+		<title>Private Beta &#8211; Expand supported audit log event types with SAML SSO authentication data</title>
+		<link>https://github.blog/changelog/2023-09-14-private-beta-expand-supported-audit-log-event-types-with-saml-sso-authentication-data</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Thu, 14 Sep 2023 16:01:41 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-14-private-beta-expand-supported-audit-log-event-types-with-saml-sso-authentication-data</guid>
+
+					<description><![CDATA[<p>Private Beta - Expand supported audit log event types with SAML SSO authentication data</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-14-private-beta-expand-supported-audit-log-event-types-with-saml-sso-authentication-data">Private Beta &#8211; Expand supported audit log event types with SAML SSO authentication data</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>In October 2022, we released a <a href="https://github.blog/changelog/2022-10-28-display-saml-sso-authentication-data-in-audit-log-private-beta/">private beta</a> adding linked SAML and OIDC single sign-on (SSO) identities for relevant users to GitHub Enterprise audit log events.</p>
+<p>We are expanding the private beta to now include linked identities within git events, making this information available across all relevant events.</p>
+<p>Enterprise owners interested in participating in the private beta should reach out to your GitHub account manager or <a href="https://github.com/enterprise/contact">contact our sales team</a> to have this feature enabled for your enterprise. Once enabled, enterprise and organization owners can provide feedback at the <a href="https://github.com/community/community/discussions/37136">logging SAML SSO authentication data for enterprise and org audit log events community discussion page</a>.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-14-private-beta-expand-supported-audit-log-event-types-with-saml-sso-authentication-data">Private Beta &#8211; Expand supported audit log event types with SAML SSO authentication data</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74086</post-id>	</item>
+		<item>
+		<title>GitHub Actions &#8211; Updates to GITHUB_REF and github.ref</title>
+		<link>https://github.blog/changelog/2023-09-13-github-actions-updates-to-github_ref-and-github-ref</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Wed, 13 Sep 2023 23:04:12 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-13-github-actions-updates-to-github_ref-and-github-ref</guid>
+
+					<description><![CDATA[<p>GitHub Actions - Updates to GITHUB_REF and github.ref</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-13-github-actions-updates-to-github_ref-and-github-ref">GitHub Actions &#8211; Updates to GITHUB_REF and github.ref</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We have implemented a fix so that <code>GITHUB_REF</code> and the <code>github.ref</code> context value return a fully-formed ref (e.g &#8211; <code>refs/heads/main</code>) when a workflow is triggered as a result of a pull request being merged. This change only impacts a small subset of workflows that trigger as a result of a pull request closing after being merged and that make use of <code>GITHUB_REF</code> or <code>github.ref</code>.</p>
+<p>Previously, <code>GITHUB_REF</code> and <code>github.ref</code> were incorrectly returning a shortened ref (e.g. &#8211; <code>main</code>). These should always return a fully-formed ref regardless of the scenario.</p>
+<p>Please visit our documentation for more details about using Actions <a href="https://docs.github.com/actions/learn-github-actions/contexts">context</a> and <a href="https://docs.github.com/actions/learn-github-actions/variables">variables</a>.</p>
+<p>For questions, <a href="https://github.com/orgs/community/discussions/categories/actions-and-packages">visit the GitHub Actions community</a>.</p>
+<p>To see what&#039;s next for Actions, <a href="https://github.com/orgs/github/projects/4247/views/1?filterQuery=actions">visit our public roadmap</a>.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-13-github-actions-updates-to-github_ref-and-github-ref">GitHub Actions &#8211; Updates to GITHUB_REF and github.ref</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74085</post-id>	</item>
+		<item>
+		<title>Self-Serve Enterprise can grant sponsorships permission to organization</title>
+		<link>https://github.blog/changelog/2023-09-12-self-serve-enterprise-can-grant-sponsorships-permission-to-organization</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Wed, 13 Sep 2023 00:48:16 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-12-self-serve-enterprise-can-grant-sponsorships-permission-to-organization</guid>
+
+					<description><![CDATA[<p>Self-Serve Enterprise can grant sponsorships permission to organization </p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-12-self-serve-enterprise-can-grant-sponsorships-permission-to-organization">Self-Serve Enterprise can grant sponsorships permission to organization</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Self-serve enterprise accounts can now grant member organizations permission to create sponsorships. Sponsorships created by a member organization will charge the enterprise account&#039;s credit card on file.</p>
+<p>Learn more about <a href="https://docs.github.com/enterprise-cloud@latest/admin/policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-sponsors-in-your-enterprise">granting permissions</a>.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-12-self-serve-enterprise-can-grant-sponsorships-permission-to-organization">Self-Serve Enterprise can grant sponsorships permission to organization</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74065</post-id>	</item>
+		<item>
+		<title>CSV export functionality for the organization-level risk and coverage pages on the Security tab</title>
+		<link>https://github.blog/changelog/2023-09-12-csv-export-functionality-for-the-organization-level-risk-and-coverage-pages-on-the-security-tab</link>
+		
+		<dc:creator><![CDATA[ankneis]]></dc:creator>
+		<pubDate>Tue, 12 Sep 2023 22:20:12 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-12-auto-draft</guid>
+
+					<description><![CDATA[<p>You can now export data from the risk and coverage pages to a comma-separated values (CSV) file. This feature supports exporting repository-specific data based on applied filters. Learn more about the risk and coverage pages and send us your feedback</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-12-csv-export-functionality-for-the-organization-level-risk-and-coverage-pages-on-the-security-tab">CSV export functionality for the organization-level risk and coverage pages on the Security tab</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>You can now export data from the risk and coverage pages to a comma-separated values (CSV) file. This feature supports exporting repository-specific data based on applied filters.</p>
+<p><img decoding="async" fetchpriority="high" class="width-fit alignnone wp-image-74061 size-full" src="https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420" alt="" width="1842" height="1420" srcset="https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420?w=1842 1842w, https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420?w=300 300w, https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420?w=768 768w, https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420?w=1024 1024w, https://github.blog/wp-content/uploads/2023/09/Screenshot-2023-09-12-at-3.18.11-PM.png?resize=1842%2C1420?w=1536 1536w" sizes="(max-width: 1000px) 100vw, 1000px" data-recalc-dims="1" /></p>
+<p><a href="https://docs.github.com/en/enterprise-cloud@latest/code-security/security-overview/about-the-security-overview">Learn more about the risk and coverage pages</a> and <a href="https://github.com/github-community/community/discussions/categories/code-security">send us your feedback</a></p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-12-csv-export-functionality-for-the-organization-level-risk-and-coverage-pages-on-the-security-tab">CSV export functionality for the organization-level risk and coverage pages on the Security tab</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74057</post-id>	</item>
+		<item>
+		<title>Dependency review support for dependency submission results</title>
+		<link>https://github.blog/changelog/2023-09-08-dependency-review-support-for-dependency-submission-results</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Sat, 09 Sep 2023 01:08:53 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-08-dependency-review-support-for-dependency-submission-results</guid>
+
+					<description><![CDATA[<p>Dependency review support for dependency submission results</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-dependency-review-support-for-dependency-submission-results">Dependency review support for dependency submission results</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Dependency review now works with your dependencies from the dependency submission API. Dependency review  enforces policies around vulnerabilities and acceptable licenses in the pull request. Previously, dependency review could not be used with another feature of the dependency graph called the dependency submission API. The dependency submission API helps developers get a more accurate set of transitive dependencies, particularly for complex ecosystems like Gradle or Scala which require a build to resolve all transitive dependencies.</p>
+<p>To take advantage of this improvement, update to the latest version of the <a href="https://github.com/actions/dependency-review-action">dependency review action</a>, or follow the instructions in our <a href="https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#best-practices-for-using-the-dependency-review-api-and-the-dependency-submission-api-together">documentation</a>.</p>
+<p>For more information, see our documentation about <a href="https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review">dependency review</a>, the <a href="https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/using-the-dependency-submission-api">dependency submission API</a>, and some <a href="https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#best-practices-for-using-the-dependency-review-api-and-the-dependency-submission-api-together">best practices for using dependency review and the dependency submission API together</a>.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-dependency-review-support-for-dependency-submission-results">Dependency review support for dependency submission results</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74028</post-id>	</item>
+		<item>
+		<title>[Private Beta] Sign up for full access to the GHEC Enterprise Managed Users SCIM API</title>
+		<link>https://github.blog/changelog/2023-09-08-private-beta-sign-up-for-full-access-to-the-ghec-enterprise-managed-users-scim-api</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Fri, 08 Sep 2023 13:11:45 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-08-private-beta-sign-up-for-full-access-to-the-ghec-enterprise-managed-users-scim-api</guid>
+
+					<description><![CDATA[<p>[Private Beta] Sign up for full access to the GHEC Enterprise Managed Users SCIM API</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-private-beta-sign-up-for-full-access-to-the-ghec-enterprise-managed-users-scim-api">[Private Beta] Sign up for full access to the GHEC Enterprise Managed Users SCIM API</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin/scim?apiVersion=2022-11-28">Public documentation of the SCIM API for Enterprise Managed Users (EMU)</a> is now available.</p>
+<p>Administrators of EMU enterprises can use a token with the <code>admin:enterprise</code> scope to make <code>GET</code> requests from SCIM clients. With this read access, you can directly reconcile GitHub&#039;s understanding of SCIM-defined users and groups with your federated identity groups for auditing purposes.</p>
+<p>Write requests to these APIs are possible through our published IdP applications, or through a new private beta that offers direct API access.</p>
+<p>To get write access to these APIs in beta, <a href="https://github.com/features/emu-public-scim-api/signup">register your interest here</a>.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-private-beta-sign-up-for-full-access-to-the-ghec-enterprise-managed-users-scim-api">[Private Beta] Sign up for full access to the GHEC Enterprise Managed Users SCIM API</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74026</post-id>	</item>
+		<item>
+		<title>Updated IP ranges for GitHub Enterprise Importer</title>
+		<link>https://github.blog/changelog/2023-09-08-updated-ip-ranges-for-github-enterprise-importer</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Fri, 08 Sep 2023 11:29:26 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-08-updated-ip-ranges-for-github-enterprise-importer</guid>
+
+					<description><![CDATA[<p>Updated IP ranges for GitHub Enterprise Importer</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-updated-ip-ranges-for-github-enterprise-importer">Updated IP ranges for GitHub Enterprise Importer</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#039;re making changes to the IP addresses used by <a href="https://docs.github.com/en/migrations/using-github-enterprise-importer">GitHub Enterprise Importer</a> for outbound network connections. These changes will take affect at 00:00 UTC on September 18, 2023.</p>
+<p>If you&#039;re running migrations with GitHub Enterprise Importer and you have IP allowlisting enabled on your migration source or target, or an Azure Blob Storage or Amazon S3 account which you use for migrations, then you&#039;ll need to update your allow list.</p>
+<p>For a full list of our IP ranges and more information, see &quot;Configuring IP allow lists for migrations&quot; in the GitHub Docs (<a href="https://docs.github.com/en/migrations/using-github-enterprise-importer/preparing-to-migrate-with-github-enterprise-importer/managing-access-for-github-enterprise-importer#configuring-ip-allow-lists-for-migrations">https://docs.github.com/en/migrations/using-github-enterprise-importer/preparing-to-migrate-with-github-enterprise-importer/managing-access-for-github-enterprise-importer#configuring-ip-allow-lists-for-migrations</a>).</p>
+<p>Owners of organizations affected by this change were already sent an email notification on August 18, 2023, providing 30 days&#039; notice.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-08-updated-ip-ranges-for-github-enterprise-importer">Updated IP ranges for GitHub Enterprise Importer</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74023</post-id>	</item>
+		<item>
+		<title>New 2FA account recovery options via password reset flow</title>
+		<link>https://github.blog/changelog/2023-09-07-new-2fa-account-recovery-options-via-password-reset-flow</link>
+		
+		<dc:creator><![CDATA[Kevin Duck]]></dc:creator>
+		<pubDate>Thu, 07 Sep 2023 20:33:28 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2023-09-07-new-2fa-account-recovery-options-via-password-reset-flow</guid>
+
+					<description><![CDATA[<p>New 2FA account recovery options via password reset flow</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-07-new-2fa-account-recovery-options-via-password-reset-flow">New 2FA account recovery options via password reset flow</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Users with two-factor authentication enabled can now begin the account recovery process from the password reset flow. Previously, the account password was needed to access 2FA account recovery, but passwords on 2FA-enabled accounts could only be reset with a valid second factor. If you lost your password and all of your second factors, you were locked out because you could not access account recovery. With this change, a user can recover their account as long as they can perform email verification and provide a recovery factor, such as an SSH key, PAT, or previously signed in device.</p>
+<p>Once you have performed email verification and provided a recovery factor, your recovery will be manually reviewed by GitHub&#039;s support team, who will email you within three business days. If your request is approved, you&#039;ll receive a link that lets you disable 2FA on your account. After that, you can reset your password and regain access to your account.</p>
+<p>For more information about two-factor authentication, see &quot;<a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/about-two-factor-authentication">About two-factor authentication</a>&quot;. For account recovery details, see &quot;<a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/recovering-your-account-if-you-lose-your-2fa-credentials#requesting-help-with-two-factor-authentication">Recovering your account if you lose your 2FA credentials</a>&quot;.</p>
+<p>The post <a rel="nofollow" href="https://github.blog/changelog/2023-09-07-new-2fa-account-recovery-options-via-password-reset-flow">New 2FA account recovery options via password reset flow</a> appeared first on <a rel="nofollow" href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74021</post-id>	</item>
+	</channel>
+</rss>
